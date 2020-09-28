@@ -1,6 +1,8 @@
+import { startOfHour} from 'date-fns';
+import {getCustomRepository} from 'typeorm';
+
 import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
-import { startOfHour} from 'date-fns';
 
 interface Request {
     provider: string;
@@ -9,11 +11,7 @@ interface Request {
 
 class CreateAppointmentService {
 
-    private appointmentsRepository: AppointmentsRepository;
 
-    constructor (appointmentsRepository: AppointmentsRepository) {
-        this.appointmentsRepository = appointmentsRepository;
-    }
     public execute({date, provider}: Request): Appointment {
         const appointmentDate = startOfHour(date);
 
