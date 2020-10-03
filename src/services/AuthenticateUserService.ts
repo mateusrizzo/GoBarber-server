@@ -9,7 +9,7 @@ interface Request {
 }
 
 export default class AuthenticateUserService {
-    public async execute ({email, password}: Request): Promise<void> {
+    public async execute ({email, password}: Request): Promise<{user: User}> {
         const usersRepository = getRepository(User);
 
         const user = await usersRepository.findOne({where: email});
@@ -23,5 +23,7 @@ export default class AuthenticateUserService {
         if(!passwordMatched){
             throw new Error('Incorrect email and/or password!');
         }
+
+        return {user};
     }
 }
