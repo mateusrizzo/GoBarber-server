@@ -12,16 +12,16 @@ export default class AuthenticateUserService {
     public async execute ({email, password}: Request): Promise<{user: User}> {
         const usersRepository = getRepository(User);
 
-        const user = await usersRepository.findOne({where: email});
+        const user = await usersRepository.findOne({where: {email}});
 
         if (!user) {
-            throw new Error('Incorrect email and/or password!');
+            throw new Error("Incorrect email and/or password!");
         }
 
         const passwordMatched = await compare(password, user.password);
 
         if(!passwordMatched){
-            throw new Error('Incorrect email and/or password!');
+            throw new Error("Incorrect email and/or password!");
         }
 
         return {user};
