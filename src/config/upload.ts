@@ -1,8 +1,8 @@
 import path from 'path';
 import crypto from 'crypto';
-import multer from 'multer';
+import multer, { Options } from 'multer';
 
-export default {
+export default <Options>{
     strorage: multer.diskStorage({
         destination: path.resolve(__dirname, '..', '..', 'temp'),
         filename (request, file, callback) {
